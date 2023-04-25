@@ -1,0 +1,77 @@
+#include <iostream>
+#include <cmath> // підключення бібліотеки для використання функції квадратного кореня
+using namespace std;
+
+class Square {
+private:
+    int side; // приватне поле для зберігання значення сторони квадрата
+
+public:
+    // конструктор за замовчуванням, який створює екземпляр зі значенням 0
+    Square() {
+        side = 0;
+    }
+
+    // конструктор з параметрами, який створює екземпляр з відповідним значенням сторони
+    Square(int s) {
+        side = s;
+    }
+
+    // метод для отримання значення сторони
+    int getSide() {
+        return side;
+    }
+
+    // метод для присвоєння значення сторони
+    void setSide(int s) {
+        side = s;
+    }
+
+    // метод для обчислення значення площі квадрата
+    int getArea() {
+        return side * side;
+    }
+
+    // метод для виведення на екран значення сторони і площі квадрата
+    void print_sqr() {
+        cout << "Side: " << side << endl;
+        cout << "Area: " << getArea() << endl;
+    }
+
+    // дружня функція, яка приймає два екземпляри квадратів і повертає новий квадрат
+    friend Square frd(Square sq1, Square sq2) {
+        // обчислення суми площ квадратів
+        int sum = sq1.getArea() + sq2.getArea();
+        // обчислення нового значення сторони квадрата
+        int newSide = sqrt(sum);
+        // повернення нового квадрата зі значенням сторони, розрахованим вище
+        return Square(newSide);
+    }
+};
+
+int main() {
+    // створення двох екземплярів квадратів з різними значеннями сторін
+    Square sq1(5);
+    Square sq2(10);
+
+    // виведення на екран значень сторін і площ кожного з квадратів
+    cout << "Square 1:" << endl;
+    sq1.print_sqr();
+    cout << endl;
+
+    cout << "Square 2:" << endl;
+    sq2.print_sqr();
+    cout << endl;
+
+    // обчислення площі третього квадрата, що є сумою двох заданих
+    int newSide = sqrt(sq1.getArea() + sq2.getArea());
+    Square sq3(newSide);
+
+    // виведення на екран значень сторін і площ третього квадрата
+    cout << "Square 3:" << endl;
+    cout << "Side: " << sq3.getSide() << endl;
+    cout << "Area: " << sq3.getArea() << endl;
+    cout << endl;
+
+    return 0;
+}
