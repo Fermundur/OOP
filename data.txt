@@ -1,0 +1,12 @@
+Stepanenko Ira 3 4 5
+Lobov Bogdan 2 5 4
+Livchenko Oleg 4 4 5
+Nazariychuk Maria 5 3 5
+Napalm Glib 5 5 5
+Tyler Durden 5 5 5
+Patrick Bateman 5 5 5
+Saul Goodman 5 5 5
+Svizhist Dmytro 2 2 2
+Povaha Roman 3 5 2
+Zabava Ivan 3 3 5
+Vidmynna Yuliya 1 1 2
