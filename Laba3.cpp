@@ -8,7 +8,7 @@ using namespace std;
 
 const int MAX_STUDENTS = 100;
 
-// Клас, що представляє студента
+// ГЉГ«Г Г±, Г№Г® ГЇГ°ГҐГ¤Г±ГІГ ГўГ«ГїВє Г±ГІГіГ¤ГҐГ­ГІГ 
 class Student {
 public:
     string surname;
@@ -17,28 +17,28 @@ public:
     int physics;
     int computer_science;
 
-    // Функція для розрахунку середнього балу студента
+    // Г”ГіГ­ГЄГ¶ВіГї Г¤Г«Гї Г°Г®Г§Г°Г ГµГіГ­ГЄГі Г±ГҐГ°ГҐГ¤Г­ГјГ®ГЈГ® ГЎГ Г«Гі Г±ГІГіГ¤ГҐГ­ГІГ 
     float average_mark() const {
         return (math + physics + computer_science) / 3.0;
     }
 };
 
-// Функція порівняння студентів для сортування
+// Г”ГіГ­ГЄГ¶ВіГї ГЇГ®Г°ВіГўГ­ГїГ­Г­Гї Г±ГІГіГ¤ГҐГ­ГІВіГў Г¤Г«Гї Г±Г®Г°ГІГіГўГ Г­Г­Гї
 bool compareStudents(const Student& s1, const Student& s2) {
     return s1.average_mark() > s2.average_mark();
 }
 
 int main() {
-    // Використання вектора для зберігання студентів
+    // Г‚ГЁГЄГ®Г°ГЁГ±ГІГ Г­Г­Гї ГўГҐГЄГІГ®Г°Г  Г¤Г«Гї Г§ГЎГҐГ°ВіГЈГ Г­Г­Гї Г±ГІГіГ¤ГҐГ­ГІВіГў
     vector<Student> students;
 
-    // Відкриття файлу для читання
+    // Г‚ВіГ¤ГЄГ°ГЁГІГІГї ГґГ Г©Г«Гі Г¤Г«Гї Г·ГЁГІГ Г­Г­Гї
     ifstream file("data.txt");
     if (file.is_open()) {
         string surname, name;
         int math, physics, computer_science;
 
-        // Зчитування даних про студентів з файлу та додавання їх до вектора
+        // Г‡Г·ГЁГІГіГўГ Г­Г­Гї Г¤Г Г­ГЁГµ ГЇГ°Г® Г±ГІГіГ¤ГҐГ­ГІВіГў Г§ ГґГ Г©Г«Гі ГІГ  Г¤Г®Г¤Г ГўГ Г­Г­Гї ВїГµ Г¤Г® ГўГҐГЄГІГ®Г°Г 
         while (file >> surname >> name >> math >> physics >> computer_science) {
             Student student;
             student.surname = surname;
@@ -49,7 +49,7 @@ int main() {
             students.push_back(student);
         }
 
-        // Закриття файлу після завершення читання
+        // Г‡Г ГЄГ°ГЁГІГІГї ГґГ Г©Г«Гі ГЇВіГ±Г«Гї Г§Г ГўГҐГ°ГёГҐГ­Г­Гї Г·ГЁГІГ Г­Г­Гї
         file.close();
     }
     else {
@@ -57,10 +57,10 @@ int main() {
         return 1;
     }
 
-    // Сортування студентів за середнім балом в порядку спадання
+    // Г‘Г®Г°ГІГіГўГ Г­Г­Гї Г±ГІГіГ¤ГҐГ­ГІВіГў Г§Г  Г±ГҐГ°ГҐГ¤Г­ВіГ¬ ГЎГ Г«Г®Г¬ Гў ГЇГ®Г°ГїГ¤ГЄГі Г±ГЇГ Г¤Г Г­Г­Гї
     sort(students.begin(), students.end(), compareStudents);
 
-    // Виведення інформації про студентів з середнім балом більше 4.0
+    // Г‚ГЁГўГҐГ¤ГҐГ­Г­Гї ВіГ­ГґГ®Г°Г¬Г Г¶ВіВї ГЇГ°Г® Г±ГІГіГ¤ГҐГ­ГІВіГў Г§ Г±ГҐГ°ГҐГ¤Г­ВіГ¬ ГЎГ Г«Г®Г¬ ГЎВіГ«ГјГёГҐ 4.0
     for (const Student& student : students) {
         if (student.average_mark() > 4.0) {
             cout << student.surname << " " << student.name << ": " << student.average_mark() << endl;
