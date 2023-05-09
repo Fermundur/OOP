@@ -8,7 +8,7 @@ using namespace std;
 
 const int MAX_STUDENTS = 100;
 
-// Êëàñ, ùî ïðåäñòàâëÿº ñòóäåíòà
+// Клас, який представляє студента
 class Student {
 public:
     string surname;
@@ -17,28 +17,28 @@ public:
     int physics;
     int computer_science;
 
-    // Ôóíêö³ÿ äëÿ ðîçðàõóíêó ñåðåäíüîãî áàëó ñòóäåíòà
+    // Метод для обчислення середнього балу студента
     float average_mark() const {
         return (math + physics + computer_science) / 3.0;
     }
 };
 
-// Ôóíêö³ÿ ïîð³âíÿííÿ ñòóäåíò³â äëÿ ñîðòóâàííÿ
+// Функція порівняння студентів для сортування
 bool compareStudents(const Student& s1, const Student& s2) {
     return s1.average_mark() > s2.average_mark();
 }
 
 int main() {
-    // Âèêîðèñòàííÿ âåêòîðà äëÿ çáåð³ãàííÿ ñòóäåíò³â
+    // Створення вектора для зберігання студентів
     vector<Student> students;
 
-    // Â³äêðèòòÿ ôàéëó äëÿ ÷èòàííÿ
+    // Відкриття файлу для зчитування
     ifstream file("data.txt");
     if (file.is_open()) {
         string surname, name;
         int math, physics, computer_science;
 
-        // Ç÷èòóâàííÿ äàíèõ ïðî ñòóäåíò³â ç ôàéëó òà äîäàâàííÿ ¿õ äî âåêòîðà
+        // Зчитування даних про студентів з файлу та додавання до вектора
         while (file >> surname >> name >> math >> physics >> computer_science) {
             Student student;
             student.surname = surname;
@@ -49,18 +49,18 @@ int main() {
             students.push_back(student);
         }
 
-        // Çàêðèòòÿ ôàéëó ï³ñëÿ çàâåðøåííÿ ÷èòàííÿ
+        // Закриття файлу після зчитування
         file.close();
     }
     else {
-        cout << "Error opening file!" << endl;
+        cout << "Помилка відкриття файлу!" << endl;
         return 1;
     }
 
-    // Ñîðòóâàííÿ ñòóäåíò³â çà ñåðåäí³ì áàëîì â ïîðÿäêó ñïàäàííÿ
+    // Сортування студентів за середнім балом у зворотньому порядку
     sort(students.begin(), students.end(), compareStudents);
 
-    // Âèâåäåííÿ ³íôîðìàö³¿ ïðî ñòóäåíò³â ç ñåðåäí³ì áàëîì á³ëüøå 4.0
+    // Виведення інформації про студентів з середнім балом більше 4.0
     for (const Student& student : students) {
         if (student.average_mark() > 4.0) {
             cout << student.surname << " " << student.name << ": " << student.average_mark() << endl;
