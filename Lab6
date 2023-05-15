@@ -1,1 +1,89 @@
+#include <iostream>
+#include <string>
 
+// Базовий клас для всіх тварин
+class Animal {
+    public:
+        // Конструктор з параметром ім'я
+        Animal(const std::string& name) : name(name) {}
+        // Віртуальний деструктор
+        virtual ~Animal() {}
+        // Чисто віртуальний метод для виводу звуку тварини
+        virtual void makeSound() = 0;
+    protected:
+        std::string name; // Ім'я тварини
+};
+
+// Клас для ссавців, успадковує від класу Animal
+class Mammal : public Animal {
+    public:
+        // Конструктор з параметром ім'я
+        Mammal(const std::string& name) : Animal(name) {}
+        // Перевизначення методу makeSound для ссавців
+        void makeSound() override {
+            std::cout << name << " робить звук ссавця" << std::endl;
+        }
+};
+
+// Клас для птиць, успадковує від класу Animal
+class Bird : public Animal {
+    public:
+        // Конструктор з параметром ім'я
+        Bird(const std::string& name) : Animal(name) {}
+        // Перевизначення методу makeSound для птиць
+        void makeSound() override {
+            std::cout << name << " робить звук птиці" << std::endl;
+        }
+};
+
+// Клас для парнокопитних, успадковує від класу Bird
+class EvenToedUngulate : public Bird {
+    public:
+        // Конструктор з параметром ім'я
+        EvenToedUngulate(const std::string& name) : Bird(name) {}
+        // Перевизначення методу makeSound для парнокопитних
+        void makeSound() override {
+            std::cout << name << " робить звук парнокопитного" << std::endl;
+        }
+};
+
+int main() {
+    Mammal mammal("Ссавець"); // Створюємо об'єкт класу Mammal
+    Bird bird("Птиця"); // Створюємо об'єкт класу Bird
+    EvenToedUngulate ungulate("Парнокопитний"); // Створюємо об'єкт класу EvenToedUngulate
+
+    mammal.makeSound(); // Викликаємо метод makeSound для об'єкта mammal
+    bird.makeSound(); // Викликаємо метод makeSound для об'єкта bird
+    ungulate.makeSound(); // Викликаємо метод makeSound для об'єкта ungulate
+
+    return 0;
+}
+
+
+
+
++--------+
+| Animal |
++--------+
+| -name  |
++--------+
+| +makeSound(): void |
++--------+
+     |
+     |   +--------+
+     +-->| Mammal |
+     |   +--------+
+     |   | +makeSound(): void |
+     |   +--------+
+     |
+     |   +------+
+     +-->| Bird |
+         +------+
+         | +makeSound(): void |
+         +------+
+             |
+             |   +-----------------+
+             +-->| EvenToedUngulate |
+                 +-----------------+
+                 | +makeSound(): void |
+                 +-----------------+
