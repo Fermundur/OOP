@@ -1,0 +1,80 @@
+#include <iostream>
+
+template <typename T>
+class Array {
+private:
+    T* elements;
+    int size;
+
+public:
+    Array(int n) : size(n) {
+        elements = new T[size];
+    }
+
+    Array(const Array& other) : size(other.size) {
+        elements = new T[size];
+        for (int i = 0; i < size; i++) {
+            elements[i] = other.elements[i];
+        }
+    }
+
+    ~Array() {
+        delete[] elements;
+    }
+
+    Array& operator=(const Array& other) {
+        if (this == &other) {
+            return *this;
+        }
+
+        delete[] elements;
+        size = other.size;
+        elements = new T[size];
+        for (int i = 0; i < size; i++) {
+            elements[i] = other.elements[i];
+        }
+
+        return *this;
+    }
+
+    T& operator[](int index) {
+        return elements[index];
+    }
+
+    friend std::ostream& operator<<(std::ostream& os, const Array& arr) {
+        for (int i = 0; i < arr.size; i++) {
+            os << arr.elements[i] << " ";
+        }
+        return os;
+    }
+
+    bool operator==(const Array& other) {
+        if (size != other.size) {
+            return false;
+        }
+
+        for (int i = 0; i < size; i++) {
+            if (elements[i] != other.elements[i]) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+};
+
+int main() {
+    Array<int> intArray(5);
+    for (int i = 0; i < 5; i++) {
+        intArray[i] = i + 1;
+    }
+    std::cout << "Array of integers: " << intArray << std::endl;
+
+    Array<double> doubleArray(3);
+    doubleArray[0] = 1.1;
+    doubleArray[1] = 2.2;
+    doubleArray[2] = 3.3;
+    std::cout << "Array of doubles: " << doubleArray << std::endl;
+
+    return 0;
+}
