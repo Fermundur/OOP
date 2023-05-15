@@ -1,1 +1,30 @@
+#include <iostream>
+#include <cmath>
 
+class Square {
+    private:
+        double side; // розмір сторони квадрата
+    public:
+        Square() : side(0) {} // конструктор без параметра, який створює екземпляр зі значенням 0
+        Square(double side) : side(side) {} // конструктор з параметрами, який створює екземпляр з відповідним значенням сторони
+        double getSide() { return side; } // метод для отримання значення сторони
+        void setSide(double side) { this->side = side; } // метод для присвоєння значення сторони
+        friend std::ostream& operator<<(std::ostream& os, const Square& s); // перевантаження операції << для виводу на екран значення сторони та площі квадрата
+        Square operator+(const Square& other); // перевантаження операції + для створення нового квадрата сумарної площі двох квадратів
+        Square& operator++(); // перевантаження операції ++ для збільшення стронони квадрата на одиницю
+};
+
+std::ostream& operator<<(std::ostream& os, const Square& s) {
+    os << "Сторона: " << s.side << ", Площа: " << s.side * s.side; // виводимо на екран значення сторони та площі квадрата
+    return os;
+}
+
+Square Square::operator+(const Square& other) {
+    double newArea = side * side + other.side * other.side; // обчислюємо сумарну площу двох квадратів
+    return Square(sqrt(newArea)); // створюємо новий квадрат з перерахованим значенням сторони
+}
+
+Square& Square::operator++() {
+    ++side; // збільшуємо стронону квадрата на одиницю
+    return *this;
+}
