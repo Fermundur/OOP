@@ -1,1 +1,60 @@
+#include <iostream>
+#include <cmath>
 
+class GeometricFigure {
+public:
+    virtual double area() const = 0; // Чисто віртуальна функція
+};
+
+class Triangle : public GeometricFigure {
+private:
+    double a, b, c;
+
+public:
+    Triangle(double sideA, double sideB, double sideC) : a(sideA), b(sideB), c(sideC) {}
+
+    double area() const override {
+        // Використовуємо формулу Герона для обчислення площі трикутника
+        double p = (a + b + c) / 2.0;
+        return std::sqrt(p * (p - a) * (p - b) * (p - c));
+    }
+};
+
+class Trapezoid : public GeometricFigure {
+private:
+    double a, b, h;
+
+public:
+    Trapezoid(double baseA, double baseB, double height) : a(baseA), b(baseB), h(height) {}
+
+    double area() const override {
+        // Використовуємо формулу для обчислення площі трапеції
+        return ((a + b) * h) / 2.0;
+    }
+};
+
+class EquilateralTriangle : public Triangle {
+public:
+    EquilateralTriangle(double side) : Triangle(side, side, side) {}
+};
+
+int main() {
+    const int num_figures = 4;
+    GeometricFigure* figures[num_figures];
+
+    figures[0] = new Triangle(3, 4, 5);
+    figures[1] = new Trapezoid(4, 6, 3);
+    figures[2] = new EquilateralTriangle(5);
+    figures[3] = new Triangle(6, 8, 10);
+
+    for (int i = 0; i < num_figures; i++) {
+        std::cout << "Area of figure " << i+1 << ": " << figures[i]->area() << std::endl;
+    }
+
+    // Видалення виділеної пам'яті
+    for (int i = 0; i < num_figures; i++) {
+        delete figures[i];
+    }
+
+    return 0;
+}
